@@ -17,7 +17,35 @@ st.caption("Мобильный режим 📱")
 st.subheader("⏳ Срок (в днях)")
 
 product = st.text_input("Товар")
-days = st.number_input("Срок (дней)", min_value=1, value=30)
+st.subheader("⏳ Быстрый выбор срока")
+
+col1, col2, col3 = st.columns(3)
+
+if col1.button("7 дней"):
+    st.session_state.days = 7
+
+if col2.button("14 дней"):
+    st.session_state.days = 14
+
+if col3.button("30 дней"):
+    st.session_state.days = 30
+
+col4, col5, col6 = st.columns(3)
+
+if col4.button("90 дней"):
+    st.session_state.days = 90
+
+if col5.button("180 дней"):
+    st.session_state.days = 180
+
+if col6.button("365 дней"):
+    st.session_state.days = 365
+
+days = st.number_input(
+    "Срок (дней)",
+    min_value=1,
+    value=st.session_state.get("days", 30)
+)
 
 if st.button("📅 Посчитать дату"):
     expiry = datetime.today() + timedelta(days=days)
